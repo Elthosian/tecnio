@@ -33,19 +33,31 @@ class Item(models.Model):
     source = models.TextField(default=None, blank=True, null=True)
     main_project = models.ForeignKey('self', default=None, blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Project(models.Model):
     object = models.OneToOneField(Item)
 
+    def __str__(self):
+        return self.object.name
+
 
 class Article(models.Model):
     object = models.OneToOneField(Item)
+
+    def __str__(self):
+        return self.object.name
 
 
 class Conference(models.Model):
     object=models.OneToOneField(Item)
     place=models.TextField()
     end_date=models.DateField()
+
+    def __str__(self):
+        return self.object.name
 
 
 class Ownership(models.Model):
