@@ -38,33 +38,37 @@ class Item(models.Model):
 
 
 class Project(models.Model):
-    object = models.OneToOneField(Item)
+    item = models.OneToOneField(Item)
 
     def __str__(self):
-        return self.object.name
+        return self.item.name
 
 
 class Article(models.Model):
-    object = models.OneToOneField(Item)
+    item = models.OneToOneField(Item)
 
     def __str__(self):
-        return self.object.name
+        return self.item.name
 
 
 class Conference(models.Model):
-    object=models.OneToOneField(Item)
-    place=models.TextField()
-    end_date=models.DateField()
+    item = models.OneToOneField(Item)
+    place = models.TextField()
+    end_date = models.DateField()
 
     def __str__(self):
-        return self.object.name
+        return self.item.name
 
 
 class Ownership(models.Model):
     person=models.ForeignKey(Person, on_delete=models.CASCADE)
-    object=models.ForeignKey(Item, on_delete=models.CASCADE)
+    item=models.ForeignKey(Item, on_delete=models.CASCADE)
     main=models.BooleanField()
 
-
+    def __str__(self):
+        if self.main:
+            return self.person.name + " es autor principal en " + self.item.name
+        else:
+            return self.person.name + " es autor principal en " + self.item.name
 
 
