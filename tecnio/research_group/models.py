@@ -9,7 +9,7 @@ class Person(models.Model):
         ('MAL', 'Sr.'),
         ('FEM', 'Sra.')
     )
-    name = models.CharField("Nombre",max_length=150)
+    name = models.CharField("Nombre", max_length=150)
     prefix = models.CharField("Prefijo", max_length=3, choices=PREFIXES,
                               default=None, blank=True, null=True,
                               )
@@ -25,13 +25,13 @@ class Person(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=250)
-    abstract = models.TextField()
-    date = models.DateField()
-    information = models.TextField()
+    abstract = models.TextField(default=None, blank=True, null=True)
+    date = models.DateField(default=None, blank=True, null=True)
+    information = models.TextField(default=None, blank=True, null=True)
     image_url = models.CharField(max_length=250, default=None,
                                  blank=True, null=True)
-    source = models.TextField()
-    main_project = models.ForeignKey('self')
+    source = models.TextField(default=None, blank=True, null=True)
+    main_project = models.ForeignKey('self', default=None, blank=True, null=True)
 
 
 class Project(models.Model):
