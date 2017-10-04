@@ -17,10 +17,9 @@ class Person(models.Model):
     photo_url = models.CharField("Fotografía", max_length=250, default=None,
                                  blank=True, null=True)
 
-    @property
     def __str__(self):
-        if self.title:
-            return self.title + ' ' + self.name
+        if self.prefix:
+            return self.PREFIXES(self.prefix) + ' ' + self.name
         else:
             return self.name
 
