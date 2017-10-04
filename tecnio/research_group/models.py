@@ -6,41 +6,40 @@ class Person(models.Model):
         ('PHD', 'PhD.'),
         ('MSC', 'MSc.'),
         ('ENG', 'Ing.'),
-        ('MAL', 'Mr.'),
-        ('FEM', 'Mrs.')
+        ('MAL', 'Sr.'),
+        ('FEM', 'Sra.')
     )
-    name= models.CharField("Nombre",max_length=150)
+    name = models.CharField("Nombre",max_length=150)
     prefix = models.CharField("Prefijo", max_length=3, choices=PREFIXES,
                               default=None, blank=True, null=True,
                               )
     title = models.TextField("Títulos")
-    photo_url = models.CharField("Fotografía", max_length=250, default=None,
-                                 blank=True, null=True)
+    photo_url = models.URLField("Fotografía", max_length=250, default=None, blank=True, null=True)
 
     def __str__(self):
         if self.prefix:
-            return self.PREFIXES(self.prefix) + ' ' + self.name
+            return self.get_prefix_display() + ' ' + self.name
         else:
             return self.name
 
 
 class Item(models.Model):
-    name=models.CharField(max_length=250)
-    abstract=models.TextField()
-    date=models.DateField()
-    information=models.TextField()
-    image_url=models.CharField(max_length=250, default=None,
+    name = models.CharField(max_length=250)
+    abstract = models.TextField()
+    date = models.DateField()
+    information = models.TextField()
+    image_url = models.CharField(max_length=250, default=None,
                                  blank=True, null=True)
-    source=models.TextField()
-    main_project=models.ForeignKey('self')
+    source = models.TextField()
+    main_project = models.ForeignKey('self')
 
 
 class Project(models.Model):
-    object=models.OneToOneField(Item)
+    object = models.OneToOneField(Item)
 
 
 class Article(models.Model):
-    object=models.OneToOneField(Item)
+    object = models.OneToOneField(Item)
 
 
 class Conference(models.Model):
